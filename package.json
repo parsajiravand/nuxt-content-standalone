@@ -1,7 +1,18 @@
 {
   "name": "nuxt-content-standalone",
+  "version": "1.0.0-alpha.1",
   "author": "parsa jiravand",
-  "private": true,
+  "description": "A Nuxt.js project with @nuxt/content module for standalone usage",
+  "type": "module",
+  "main": "./nuxt.config.ts",
+  "files": [
+    "components",
+    "composables",
+    "pages",
+    "app.config.ts",
+    "nuxt.config.ts",
+    "tailwind.config.js"
+  ],
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -18,5 +29,6 @@
     "@nuxt-themes/elements": "*",
     "@nuxt-themes/typography": "*"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "license": "MIT"
 }

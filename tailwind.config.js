@@ -12,8 +12,7 @@ module.exports = {
     "./layouts/**/*.vue",
     "./pages/**/*.vue",
     "./plugins/**/*.{js,ts}",
-    "./nuxt.config.{js,ts}",
-    "./node_modules/@nuxt-themes/typography/components/**/*.vue",
+    "./nuxt.config.{js,ts}"
 
   ],
   darkMode: "class",
