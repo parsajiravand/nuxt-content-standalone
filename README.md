@@ -22,13 +22,13 @@
 You can install the package via npm:
 
 ```shell
-npm install nuxt-content-standalone
+npm install nuxt-content-stand
 ```
 
 or using Yarn:
 
 ```shell
-yarn add nuxt-content-standalone
+yarn add nuxt-content-stand
 ```
 
 ## Usage
@@ -39,9 +39,9 @@ yarn add nuxt-content-standalone
 
 - Import and register the plugin in your Nuxt configuration file (nuxt.config.js):
 
-```js
+```ts
 export default {
-  plugins: ["nuxt-content-standalone"],
+  extend: "nuxt-content-stand",
 };
 ```
 
@@ -55,7 +55,7 @@ export default {
 
 ## Documentation
 
-The complete documentation for "Nuxt Content Standalone" can be found at https://github.com/your-repo/nuxt-content-standalone.
+The complete documentation for "Nuxt Content Standalone" can be found at https://github.com/parsajiravand/nuxt-content-standalone.
 
 ## Contributing
 
@@ -65,4 +65,3 @@ Contributions are welcome! If you have any ideas, suggestions, or bug reports, p
 
 This package is open source and available under the MIT License.
 
-Please replace `your-repo` in the links with your actual GitHub repository name.

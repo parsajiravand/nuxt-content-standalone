@@ -1,6 +1,6 @@
 {
-  "name": "nuxt-content-standalone",
-  "version": "1.0.0-alpha.1",
+  "name": "nuxt-content-stand",
+  "version": "1.0.0-alpha.3",
   "author": "parsa jiravand",
   "description": "A Nuxt.js project with @nuxt/content module for standalone usage",
   "type": "module",
@@ -21,14 +21,15 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@types/node": "^18",
+    "nuxt": "^3.5.2"
+  },
+  "dependencies": {
     "@nuxt/content": "^2.6.0",
     "@nuxtjs/color-mode": "^3.2.0",
     "@nuxtjs/tailwindcss": "^6.7.0",
-    "@types/node": "^18",
-    "nuxt": "^3.5.2",
     "@nuxt-themes/elements": "*",
     "@nuxt-themes/typography": "*"
   },
-  "dependencies": {},
   "license": "MIT"
 }
