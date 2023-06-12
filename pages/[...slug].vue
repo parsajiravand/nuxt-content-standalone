@@ -2,15 +2,26 @@
 import { NavItem } from "@nuxt/content/dist/runtime/types";
 import { INavigation } from "~/interfaces/navigation";
 
+const appConfig = useAppConfig();
 const { data: navigationPure } = await useAsyncData("navigation", () =>
   fetchContentNavigation()
 );
 
+console.log(navigationPure.value);
 let navigation: INavigation[] = [];
 if (!navigationPure.value) {
   navigation = [];
 } else {
-  navigation = navigationPure.value[0]?.children || [];
+  if (appConfig.stand.contentRoot) {
+    const fetchFolder = navigationPure.value.find((item) => {
+      return item._path === appConfig.stand.contentRoot;
+    })?.children as INavigation[];
+    console.log(fetchFolder);
+
+    navigation = fetchFolder || [];
+  } else {
+    navigation = navigationPure.value;
+  }
 }
 
 const { path } = useRoute();
