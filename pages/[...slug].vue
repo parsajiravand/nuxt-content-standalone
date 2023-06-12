@@ -34,7 +34,6 @@ const { data: contentPath } = await useAsyncData(
     // which is an array of documeents that come before and after the current document
     let surround = queryContent()
       .only(["_path", "title", "description", "lang"])
-      .sort({ date: 1 })
       .findSurround(path);
 
     return {
@@ -93,14 +92,94 @@ const getHeaderHeight = () => {
 onMounted(() => {
   topPosition.value = getHeaderHeight() + 10;
 });
+
+const isSidebarOpen = ref(false);
+const toggleSidebar = () => {
+  isSidebarOpen.value = !isSidebarOpen.value;
+};
 </script>
 <template>
   <main class="prose flex flex-row">
     <!-- create navigation ul with tailwind -->
+    <!-- create collapse for navbar on mobile size -->
+    <button
+      class="md:hidden fixed right-0 top-0 m-4 z-50 rounded-md"
+      @click="toggleSidebar"
+    >
+      <svg
+        class="w-8 h-8 text-gray-800 dark:text-gray-100"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
+        <path
+          v-if="!isSidebarOpen"
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z"
+        />
+        <path
+          v-if="isSidebarOpen"
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M20 6H4v2h16V6zm0 5H4v2h16v-2zm0 5H4v2h16v-2z"
+        />
+      </svg>
+    </button>
+    <!-- also add backdrop and transition for navbar -->
+    <div
+      v-if="isSidebarOpen"
+      class="fixed inset-0 bg-gray-800 bg-opacity-50 z-40"
+      @click="toggleSidebar"
+    ></div>
 
+    <div
+      v-if="isSidebarOpen"
+      class="fixed top-0 left-0 bottom-0 w-64 bg-white dark:bg-gray-800 z-50 overflow-y-auto transition-transform duration-300 transform"
+    >
+      <nav
+        :style="topPosition > 0 ? 'top: ' + topPosition + 'px' : ''"
+        class="sticky"
+      >
+        <ul class="py-4 px-4" :class="topPosition > 0 ? 'pt-4' : ''">
+          <li
+            v-for="link of navigation"
+            :key="link._path"
+            class="py-2 dark:text-gray-100"
+          >
+            <div
+              @click="toggleCollapse(link)"
+              class="flex items-center cursor-pointer"
+            >
+              <span class="mr-2">
+                <svg
+                  :class="{ 'rotate-90': link.isOpen }"
+                  class="w-4 h-4 transition-transform duration-300 transform"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </span>
+              <span
+                class="text-gray-800 dark:text-gray-100 hover:text-indigo-500"
+              >
+                {{ link.title }}
+              </span>
+            </div>
+            <Sidebar v-if="link.isOpen" :items="link.children || []"></Sidebar>
+          </li>
+        </ul>
+      </nav>
+    </div>
     <nav
       :style="topPosition > 0 ? 'top: ' + topPosition + 'px' : ''"
-      class="flex flex-col w-1/5 sticky h-3/4 doc-sidebar"
+      class="hidden md:block flex-col w-1/5 sticky h-3/4 doc-sidebar"
     >
       <ul class="shadow rounded px-2 py-6 mx-2 bg-gray-100 dark:bg-gray-800">
         <li
@@ -138,7 +217,7 @@ onMounted(() => {
       </ul>
     </nav>
 
-    <div class="h-3/4 sticky" :class="!contentBar ? 'w-4/5' : 'w-3/5'">
+    <div class="h-3/4" :class="!contentBar ? 'md:w-4/5' : 'md:w-3/5'">
       <ContentDoc class="dark:bg-gray-800 bg-gray-100 p-4 rounded" />
       <!-- PrevNext Component -->
       <PrevNext
@@ -148,7 +227,7 @@ onMounted(() => {
       />
     </div>
     <aside
-      class="mx-2 w-1/5 sticky h-3/4"
+      class="mx-2 md:w-1/5 md:sticky h-3/4"
       :style="topPosition > 0 ? 'top: ' + topPosition + 'px' : ''"
       v-if="contentBar"
     >
