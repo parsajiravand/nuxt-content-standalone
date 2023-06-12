@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { NavItem } from '@nuxt/content/dist/runtime/types';
-import { INavigation } from '~/interfaces/navigation';
-
-
+import { NavItem } from "@nuxt/content/dist/runtime/types";
+import { INavigation } from "~/interfaces/navigation";
 
 const { data: navigationPure } = await useAsyncData("navigation", () =>
   fetchContentNavigation()
@@ -68,7 +66,8 @@ const contentBar = computed(() => {
   }
 });
 // destrucure `prev` and `next` value from contentPath
-const [prev, next]: any = contentPath.value?.surround;
+//add type
+const [prev, next] = contentPath.value?.surround as any;
 
 const topPosition = ref(150);
 const getHeaderHeight = () => {
@@ -144,8 +143,7 @@ onMounted(() => {
     >
       <div class="">
         <!-- Toc Component -->
-        <TableOfContent :links="data?.article.body.toc.links" />
-        <!-- <Toc :links="data?.article.body.toc.links" /> -->
+        <TableOfContent :links="contentPath?.article.body.toc.links" />
       </div>
     </aside>
   </main>
