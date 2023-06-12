@@ -1,17 +1,14 @@
 <script setup lang="ts">
-import { NavItem } from "@nuxt/content/dist/runtime/types";
+import { NavItem } from '@nuxt/content/dist/runtime/types';
+import { INavigation } from '~/interfaces/navigation';
+
+
 
 const { data: navigationPure } = await useAsyncData("navigation", () =>
   fetchContentNavigation()
 );
-interface Navigation {
-  _path: string;
-  title: string;
-  children: Navigation[];
-  isOpen: boolean;
-}
 
-let navigation: NavItem[] = [];
+let navigation: INavigation[] = [];
 if (!navigationPure.value) {
   navigation = [];
 } else {
@@ -39,14 +36,14 @@ const { data: contentPath } = await useAsyncData(
 );
 
 // show items in collapse if the current route is the same as the link path
-function setParentOpenStatus(navigation: Navigation[], childPath: string) {
-  for (const link of navigation as Navigation[]) {
+function setParentOpenStatus(navigation: INavigation[], childPath: string) {
+  for (const link of navigation as INavigation[]) {
     if (link._path === childPath) {
       link.isOpen = true;
       break;
     } else if (link.children) {
       setParentOpenStatus(link.children, childPath);
-      if (link.children.some((child: Navigation) => child.isOpen)) {
+      if (link.children.some((child: INavigation) => child.isOpen)) {
         link.isOpen = true;
       }
     }
@@ -55,7 +52,7 @@ function setParentOpenStatus(navigation: Navigation[], childPath: string) {
 
 if (contentPath.value?.article) {
   const childPath = contentPath.value.article._path;
-  setParentOpenStatus(navigation as Navigation[], childPath as string);
+  setParentOpenStatus(navigation as INavigation[], childPath as string);
 }
 
 // toggle collapse item
