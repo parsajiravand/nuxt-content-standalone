@@ -39,18 +39,14 @@ const { data: contentPath } = await useAsyncData(
 );
 
 // show items in collapse if the current route is the same as the link path
-const route = useRoute();
-const isCurrentRoute = (link: NavItem) => {
-  return route.path === link._path;
-};
-function setParentOpenStatus(navigation, childPath) {
-  for (const link of navigation) {
+function setParentOpenStatus(navigation: Navigation[], childPath: string) {
+  for (const link of navigation as Navigation[]) {
     if (link._path === childPath) {
       link.isOpen = true;
       break;
     } else if (link.children) {
       setParentOpenStatus(link.children, childPath);
-      if (link.children.some((child) => child.isOpen)) {
+      if (link.children.some((child: Navigation) => child.isOpen)) {
         link.isOpen = true;
       }
     }
@@ -59,15 +55,11 @@ function setParentOpenStatus(navigation, childPath) {
 
 if (contentPath.value?.article) {
   const childPath = contentPath.value.article._path;
-  setParentOpenStatus(navigation, childPath);
+  setParentOpenStatus(navigation as Navigation[], childPath as string);
 }
-
 
 // toggle collapse item
 const toggleCollapse = (link: NavItem) => {
-  link.isOpen = !link.isOpen;
-};
-const toggleChildCollapse = (link: NavItem) => {
   link.isOpen = !link.isOpen;
 };
 // check contentBar if it is in viewport
@@ -134,7 +126,7 @@ onMounted(() => {
               {{ link.title }}
             </span>
           </div>
-          <Sidebar v-if="link.isOpen" :items="link.children"></Sidebar>
+          <Sidebar v-if="link.isOpen" :items="link.children || []"></Sidebar>
         </li>
       </ul>
     </nav>

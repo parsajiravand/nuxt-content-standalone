@@ -1,12 +1,12 @@
 # Nuxt Content Standalone
 
-[![npm version](https://badge.fury.io/js/nuxt-content-standalone.svg)](https://badge.fury.io/js/nuxt-content-standalone)
+[![npm version](https://badge.fury.io/js/nuxt-content-standalone.svg)](https://badge.fury.io/js/nuxt-content-stand)
 
-> Setup documentation in your app with a sidebar feature, table of contents, and more, without setting `documentDriven` to `true` for Nuxt Content.
+> Setup documentation in your app with a sidebar feature, table of contents, and more, <b>without</b> setting `documentDriven` to `true` for Nuxt Content.
 
 ## Description
 
-"Nuxt Content Standalone" is a package that allows you to easily integrate a documentation system into your Nuxt.js application. It provides a sidebar feature, table of contents, and various customization options. The package works with Nuxt Content, even if the `documentDriven` option is not set to `true`.
+"Nuxt Content Standalone" is a package that allows you to easily integrate a documentation system into your Nuxt.js application. It provides a sidebar feature, table of contents, and various customization options. The package works with Nuxt Content, even if the `documentDriven` option is <b> not </b> set to `true`.
 
 ## Features
 
@@ -64,4 +64,3 @@ Contributions are welcome! If you have any ideas, suggestions, or bug reports, p
 ## License
 
 This package is open source and available under the MIT License.
-

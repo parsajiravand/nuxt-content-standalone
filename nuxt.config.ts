@@ -1,9 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  extends: [
-    "@nuxt-themes/elements",
-    "@nuxt-themes/typography",
-  ],
+  extends: ["@nuxt-themes/elements", "@nuxt-themes/typography"],
   modules: [
     "@nuxtjs/tailwindcss",
     "@nuxt/content",
@@ -17,7 +14,6 @@ export default defineNuxtConfig({
   content: {
     documentDriven: false,
     highlight: {
-      // OR
       theme: {
         // Default theme (same as single string)
         default: "github-light",

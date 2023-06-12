@@ -2,7 +2,7 @@
   "name": "nuxt-content-stand",
   "version": "1.0.0-alpha.3",
   "author": "parsa jiravand",
-  "description": "A Nuxt.js project with @nuxt/content module for standalone usage",
+  "description": "Integration with Nuxt Content without documentDriven mode",
   "type": "module",
   "main": "./nuxt.config.ts",
   "files": [
