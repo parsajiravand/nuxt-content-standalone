@@ -24,7 +24,8 @@ if (!navigationPure.value) {
 }
 
 const { path } = useRoute();
-const { data: contentPath } = await useAsyncData(
+
+const { data: contentPath, error } = await useLazyAsyncData(
   `content-${path}`,
   async () => {
     // fetch document where the document path matches with the cuurent route
@@ -41,6 +42,10 @@ const { data: contentPath } = await useAsyncData(
     };
   }
 );
+// handeling when got error
+if (error.value) {
+  throw createError({ statusCode: 404, statusMessage: "Page Not Found" });
+}
 
 // show items in collapse if the current route is the same as the link path
 function setParentOpenStatus(navigation: INavigation[], childPath: string) {
