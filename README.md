@@ -40,9 +40,9 @@ yarn add nuxt-content-stand
 - Import and register the plugin in your Nuxt configuration file (nuxt.config.js):
 
 ```ts
-export default {
+export default defineNuxtConfig({
   extend: "nuxt-content-stand",
-};
+});
 ```
 
 - Create your documentation content in the content directory of your Nuxt.js project. Follow the guidelines and conventions provided by Nuxt Content.

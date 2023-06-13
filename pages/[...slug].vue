@@ -15,7 +15,6 @@ if (!navigationPure.value) {
     const fetchFolder = navigationPure.value.find((item) => {
       return item._path === appConfig.stand.contentRoot;
     })?.children as INavigation[];
-    console.log(fetchFolder);
 
     navigation = fetchFolder || [];
   } else {
@@ -42,7 +41,7 @@ const { data: contentPath, error } = await useLazyAsyncData(
     };
   }
 );
-// handeling when got error
+// handeling when got error (404)
 if (error.value) {
   throw createError({ statusCode: 404, statusMessage: "Page Not Found" });
 }
@@ -156,7 +155,10 @@ const toggleSidebar = () => {
       </ul>
     </nav>
 
-    <div class="h-3/4" :class="!contentBar ? 'md:w-4/5' : 'md:w-3/5'">
+    <div
+      class="h-3/4 custom-content"
+      :class="!contentBar ? 'md:w-4/5' : 'md:w-3/5'"
+    >
       <ContentDoc class="dark:bg-gray-800 bg-gray-100 p-4 rounded" />
       <!-- PrevNext Component -->
       <PrevNext
@@ -180,5 +182,12 @@ const toggleSidebar = () => {
 <style scoped>
 .doc-sidebar {
   @apply max-h-[calc(100vh-6rem)] overflow-auto;
+}
+
+.custom-content {
+  @apply dark:text-gray-50;
+}
+.custom-content p {
+  @apply dark:text-gray-100;
 }
 </style>

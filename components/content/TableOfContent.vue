@@ -8,7 +8,7 @@
         <li
           v-for="link in links"
           :key="link.text"
-          :class="[{ 'ml-3': link.depth === 3 }, `toc-link _${link.depth}`]"
+          :class="[{ 'ml-3': link.depth === 4 }, `toc-link _${link.depth}`]"
         >
           <a
             :href="`#${link.id}`"
@@ -52,8 +52,11 @@ watch(
     setTimeout(() => {
       if (process.client) {
         updateHeadings([
+          ...document.querySelectorAll("h1"),
           ...document.querySelectorAll("h2"),
           ...document.querySelectorAll("h3"),
+          ...document.querySelectorAll("h4"),
+          ...document.querySelectorAll("h5"),
         ]);
       }
     }, 500);
@@ -62,7 +65,11 @@ watch(
 );
 
 const scrollToHeading = (id: string) => {
-  router.push(`#${id}`);
+  // set smooth behavior
+  window.scrollTo({
+    top: document.getElementById(id)?.offsetTop,
+    behavior: "smooth",
+  });
   emit("move", id);
 };
 </script>
