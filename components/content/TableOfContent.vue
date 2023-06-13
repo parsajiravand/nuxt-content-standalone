@@ -1,33 +1,26 @@
 <template>
-  <nav class="toc">
-    <header class="toc-header">
-      <h3 class="text-xl font-bold">Table of contents</h3>
-    </header>
-    <ClientOnly>
-      <ul class="toc-links">
-        <li
-          v-for="link in links"
-          :key="link.text"
-          :class="[{ 'ml-3': link.depth === 4 }, `toc-link _${link.depth}`]"
-        >
-          <a
-            :href="`#${link.id}`"
-            class="block py-1 font-medium text-sm"
-            :class="[
-              activeHeadings.includes(link.id)
-                ? 'text-primary-500 dark:text-primary-400'
-                : 'hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300',
-            ]"
-            @click.prevent="scrollToHeading(link.id)"
-          >
-            {{ link.text }}
-          </a>
+  <ul class="toc-links">
+    <li
+      v-for="link in links"
+      :key="link.text"
+      :class="[{ 'ml-3': link.depth === 4 }, `toc-link _${link.depth}`]"
+    >
+      <a
+        :href="`#${link.id}`"
+        class="block py-1 font-medium text-sm"
+        :class="[
+          activeHeadings.includes(link.id)
+            ? 'text-primary-500 dark:text-primary-400'
+            : 'hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300',
+        ]"
+        @click.prevent="scrollToHeading(link.id)"
+      >
+        {{ link.text }}
+      </a>
 
-          <DocsTocLinks v-if="link.children" :links="link.children" />
-        </li>
-      </ul>
-    </ClientOnly>
-  </nav>
+      <TableOfContent v-if="link.children" :links="link.children" />
+    </li>
+  </ul>
 </template>
 
 <script setup lang="ts">
@@ -43,7 +36,6 @@ defineProps({
 const emit = defineEmits(["move"]);
 
 const route = useRoute();
-const router = useRouter();
 const { activeHeadings, updateHeadings } = useScrollspy();
 
 watch(
@@ -52,11 +44,8 @@ watch(
     setTimeout(() => {
       if (process.client) {
         updateHeadings([
-          ...document.querySelectorAll("h1"),
           ...document.querySelectorAll("h2"),
           ...document.querySelectorAll("h3"),
-          ...document.querySelectorAll("h4"),
-          ...document.querySelectorAll("h5"),
         ]);
       }
     }, 500);
@@ -74,15 +63,6 @@ const scrollToHeading = (id: string) => {
 };
 </script>
 <style scoped>
-.toc {
-  @apply py-4 px-2 bg-slate-50 rounded dark:bg-gray-800 dark:border-gray-700 bg-gray-100;
-  @apply max-h-[calc(100vh-6rem)] overflow-auto;
-}
-
-.toc-header {
-  @apply pb-2 mb-2 border-b border-slate-200 dark:text-gray-50;
-}
-
 .toc-links {
   @apply flex flex-col gap-2 px-1;
 }

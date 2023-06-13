@@ -24,7 +24,7 @@ if (!navigationPure.value) {
 
 const { path } = useRoute();
 
-const { data: contentPath, error } = await useLazyAsyncData(
+const { data: contentPath, error } = await useAsyncData(
   `content-${path}`,
   async () => {
     // fetch document where the document path matches with the cuurent route
@@ -172,10 +172,15 @@ const toggleSidebar = () => {
       :style="topPosition > 0 ? 'top: ' + topPosition + 'px' : ''"
       v-if="contentBar"
     >
-      <div class="">
-        <!-- Toc Component -->
-        <TableOfContent :links="contentPath?.article.body.toc.links" />
-      </div>
+      <ClientOnly>
+        <nav class="toc">
+          <header class="toc-header">
+            <h3 class="text-xl font-bold">Table of contents</h3>
+          </header>
+          <!-- Toc Component -->
+          <TableOfContent :links="contentPath?.article.body.toc.links" />
+        </nav>
+      </ClientOnly>
     </aside>
   </main>
 </template>
@@ -189,5 +194,13 @@ const toggleSidebar = () => {
 }
 .custom-content p {
   @apply dark:text-gray-100;
+}
+.toc {
+  @apply py-4 px-2 bg-slate-50 rounded dark:bg-gray-800 dark:border-gray-700 bg-gray-100;
+  @apply max-h-[calc(100vh-6rem)] overflow-auto;
+}
+
+.toc-header {
+  @apply pb-2 mb-2 border-b border-slate-200 dark:text-gray-50;
 }
 </style>
