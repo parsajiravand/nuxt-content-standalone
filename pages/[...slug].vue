@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NavItem } from "@nuxt/content/dist/runtime/types";
+import SidebarLayout from "~/components/content/SidebarLayout.vue";
 import { INavigation } from "~/interfaces/navigation";
 
 const appConfig = useAppConfig();
@@ -7,7 +7,6 @@ const { data: navigationPure } = await useAsyncData("navigation", () =>
   fetchContentNavigation()
 );
 
-console.log(navigationPure.value);
 let navigation: INavigation[] = [];
 if (!navigationPure.value) {
   navigation = [];
@@ -63,10 +62,6 @@ if (contentPath.value?.article) {
   setParentOpenStatus(navigation as INavigation[], childPath as string);
 }
 
-// toggle collapse item
-const toggleCollapse = (link: NavItem) => {
-  link.isOpen = !link.isOpen;
-};
 // check contentBar if it is in viewport
 const contentBar = computed(() => {
   if (contentPath.value?.article?.contentBar === false) {
@@ -132,7 +127,7 @@ const toggleSidebar = () => {
       class="fixed inset-0 bg-gray-800 bg-opacity-50 z-40"
       @click="toggleSidebar"
     ></div>
-
+    <!-- Mobile only -->
     <div
       v-if="isSidebarOpen"
       class="fixed top-0 left-0 bottom-0 w-64 bg-white dark:bg-gray-800 z-50 overflow-y-auto transition-transform duration-300 transform"
@@ -142,78 +137,17 @@ const toggleSidebar = () => {
         class="sticky"
       >
         <ul class="py-4 px-4" :class="topPosition > 0 ? 'pt-4' : ''">
-          <li
-            v-for="link of navigation"
-            :key="link._path"
-            class="py-2 dark:text-gray-100"
-          >
-            <div
-              @click="toggleCollapse(link)"
-              class="flex items-center cursor-pointer"
-            >
-              <span class="mr-2">
-                <svg
-                  :class="{ 'rotate-90': link.isOpen }"
-                  class="w-4 h-4 transition-transform duration-300 transform"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M9 18l6-6-6-6" />
-                </svg>
-              </span>
-              <span
-                class="text-gray-800 dark:text-gray-100 hover:text-indigo-500"
-              >
-                {{ link.title }}
-              </span>
-            </div>
-            <Sidebar v-if="link.isOpen" :items="link.children || []"></Sidebar>
-          </li>
+          <SidebarLayout :navigation="navigation" />
         </ul>
       </nav>
     </div>
+    <!-- Desktop only -->
     <nav
       :style="topPosition > 0 ? 'top: ' + topPosition + 'px' : ''"
       class="hidden md:block flex-col w-1/5 sticky h-3/4 doc-sidebar"
     >
       <ul class="shadow rounded px-2 py-6 mx-2 bg-gray-100 dark:bg-gray-800">
-        <li
-          v-for="link of navigation"
-          :key="link._path"
-          class="py-2 dark:text-gray-100"
-        >
-          <div
-            @click="toggleCollapse(link)"
-            class="flex items-center cursor-pointer"
-          >
-            <span class="mr-2">
-              <svg
-                :class="{ 'rotate-90': link.isOpen }"
-                class="w-4 h-4 transition-transform duration-300 transform"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M9 18l6-6-6-6" />
-              </svg>
-            </span>
-            <span
-              class="text-gray-800 dark:text-gray-100 hover:text-indigo-500"
-            >
-              {{ link.title }}
-            </span>
-          </div>
-          <Sidebar v-if="link.isOpen" :items="link.children || []"></Sidebar>
-        </li>
+        <SidebarLayout :navigation="navigation" />
       </ul>
     </nav>
 
