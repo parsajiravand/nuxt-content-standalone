@@ -172,15 +172,13 @@ const toggleSidebar = () => {
       :style="topPosition > 0 ? 'top: ' + topPosition + 'px' : ''"
       v-if="contentBar"
     >
-      <ClientOnly>
-        <nav class="toc">
-          <header class="toc-header">
-            <h3 class="text-xl font-bold">Table of contents</h3>
-          </header>
-          <!-- Toc Component -->
-          <TableOfContent :links="contentPath?.article.body.toc.links" />
-        </nav>
-      </ClientOnly>
+      <nav class="toc">
+        <header class="toc-header">
+          <h3 class="text-xl font-bold">Table of contents</h3>
+        </header>
+        <!-- Toc Component -->
+        <TableOfContent :links="contentPath?.article.body.toc.links" />
+      </nav>
     </aside>
   </main>
 </template>

@@ -10,7 +10,7 @@
         class="block py-1 font-medium text-sm"
         :class="[
           activeHeadings.includes(link.id)
-            ? 'text-primary-500 dark:text-primary-400'
+            ? 'text-blue-500 dark:text-blue-400'
             : 'hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300',
         ]"
         @click.prevent="scrollToHeading(link.id)"
