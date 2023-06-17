@@ -76,7 +76,10 @@ const contentBar = computed(() => {
 });
 // destrucure `prev` and `next` value from contentPath
 //add type
-const [prev, next] = contentPath.value?.surround as any;
+const [prev, next] = contentPath.value?.surround as [
+  INavigation | undefined,
+  INavigation | undefined
+];
 
 const topPosition = ref(150);
 const getHeaderHeight = () => {

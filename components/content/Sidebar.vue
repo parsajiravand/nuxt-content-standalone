@@ -1,7 +1,7 @@
 <template>
   <ul>
     <li
-      v-for="item of items"
+      v-for="item of items as NavItem[]"
       :key="item._path"
       :class="{ 'pl-4': hasChildren(item) }"
       class="py-1"
@@ -39,30 +39,31 @@
       </div>
       <Sidebar
         v-if="item.isOpen && hasChildren(item)"
-        :items="item.children"
+        :items="item.children as NavItem[]"
       ></Sidebar>
     </li>
   </ul>
 </template>
 <script setup lang="ts">
+import { NavItem } from "@nuxt/content/dist/runtime/types";
+
 defineProps({
   items: {
-    type: Array,
+    type: Array as PropType<NavItem[]>,
     required: true,
   },
 });
 
-const toggleCollapse = (item) => {
+const toggleCollapse = (item: NavItem) => {
   item.isOpen = !item.isOpen;
 };
 
 const route = useRoute();
-const isCurrentRoute = (item) => {
+const isCurrentRoute = (item: NavItem) => {
   // Your implementation for checking current route
-    return item._path === route.path;
-  
+  return item._path === route.path;
 };
-const hasChildren = (item) => {
+const hasChildren = (item: NavItem) => {
   return Array.isArray(item.children) && item.children.length > 0;
 };
 </script>
