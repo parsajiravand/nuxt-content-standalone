@@ -150,7 +150,7 @@ const toggleSidebar = () => {
       :style="topPosition > 0 ? 'top: ' + topPosition + 'px' : ''"
       class="hidden md:block flex-col w-1/5 sticky h-3/4 doc-sidebar"
     >
-      <ul class="shadow rounded px-2 py-6 mx-2 bg-gray-100 dark:bg-gray-800">
+      <ul class="shadow rounded px-2 py-6 mx-2 bg-gray-50 dark:bg-gray-800">
         <SidebarLayout :navigation="navigation" />
       </ul>
     </nav>
@@ -159,12 +159,12 @@ const toggleSidebar = () => {
       class="h-3/4 custom-content"
       :class="!contentBar ? 'md:w-4/5' : 'md:w-3/5'"
     >
-      <ContentDoc class="dark:bg-gray-800 bg-gray-100 p-4 rounded" />
+      <ContentDoc class="dark:bg-gray-800 bg-gray-50 p-4 rounded" />
       <!-- PrevNext Component -->
       <PrevNext
         :prev="prev"
         :next="next"
-        class="dark:bg-gray-800 bg-gray-100 p-4 rounded my-5"
+        class="dark:bg-gray-800 bg-gray-50 p-4 rounded my-5"
       />
     </div>
     <aside
@@ -194,7 +194,7 @@ const toggleSidebar = () => {
   @apply dark:text-gray-100;
 }
 .toc {
-  @apply py-4 px-2 bg-slate-50 rounded dark:bg-gray-800 dark:border-gray-700 bg-gray-100;
+  @apply py-4 px-2  rounded dark:bg-gray-800 dark:border-gray-700 bg-gray-50;
   @apply max-h-[calc(100vh-6rem)] overflow-auto;
 }
 
