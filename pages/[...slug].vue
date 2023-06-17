@@ -101,15 +101,11 @@ const toggleSidebar = () => {
 };
 </script>
 <template>
-  <main class="prose flex flex-row">
+  <main class="prose">
     <!-- create navigation ul with tailwind -->
     <!-- create collapse for navbar on mobile size -->
-    <button
-      class="md:hidden fixed right-0 top-0 m-4 z-50 rounded-md"
-      @click="toggleSidebar"
-    >
+    <button class="toggle-sidebar" @click="toggleSidebar">
       <svg
-        class="w-8 h-8 text-gray-800 dark:text-gray-100"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="currentColor"
@@ -129,21 +125,14 @@ const toggleSidebar = () => {
       </svg>
     </button>
     <!-- also add backdrop and transition for navbar -->
-    <div
-      v-if="isSidebarOpen"
-      class="fixed inset-0 bg-gray-800 bg-opacity-50 z-40"
-      @click="toggleSidebar"
-    ></div>
+    <div v-if="isSidebarOpen" class="backdrop" @click="toggleSidebar"></div>
     <!-- Mobile only -->
-    <div
-      v-if="isSidebarOpen"
-      class="fixed top-0 left-0 bottom-0 w-64 bg-white dark:bg-gray-800 z-50 overflow-y-auto transition-transform duration-300 transform"
-    >
+    <div v-if="isSidebarOpen" class="mobile-sidebar">
       <nav
         :style="topPosition > 0 ? 'top: ' + topPosition + 'px' : ''"
-        class="sticky"
+        class="sticky-position"
       >
-        <ul class="py-4 px-4" :class="topPosition > 0 ? 'pt-4' : ''">
+        <ul class="sidebar" :class="topPosition > 0 ? 'sidebar-has-top' : ''">
           <SidebarLayout :navigation="navigation" />
         </ul>
       </nav>
@@ -151,33 +140,29 @@ const toggleSidebar = () => {
     <!-- Desktop only -->
     <nav
       :style="topPosition > 0 ? 'top: ' + topPosition + 'px' : ''"
-      class="hidden md:block flex-col w-1/5 sticky h-3/4 doc-sidebar"
+      class="doc-sidebar"
     >
-      <ul class="shadow rounded px-2 py-6 mx-2 bg-gray-50 dark:bg-gray-800">
+      <ul class="desk-sidebar">
         <SidebarLayout :navigation="navigation" />
       </ul>
     </nav>
 
     <div
-      class="h-3/4 custom-content"
-      :class="!contentBar ? 'md:w-4/5' : 'md:w-3/5'"
+      class="custom-content"
+      :class="!contentBar ? 'content-width-with-sidebar' : 'content-width'"
     >
-      <ContentDoc class="dark:bg-gray-800 bg-gray-50 p-4 rounded" />
+      <ContentDoc class="content-doc dark:bg-gray-800 bg-gray-50 p-4 rounded" />
       <!-- PrevNext Component -->
-      <PrevNext
-        :prev="prev"
-        :next="next"
-        class="dark:bg-gray-800 bg-gray-50 p-4 rounded my-5"
-      />
+      <PrevNext :prev="prev" :next="next" class="prev-next" />
     </div>
     <aside
-      class="mx-2 md:w-1/5 md:sticky h-3/4"
+      class="aside-toc"
       :style="topPosition > 0 ? 'top: ' + topPosition + 'px' : ''"
       v-if="contentBar"
     >
       <nav class="toc">
         <header class="toc-header">
-          <h3 class="text-xl font-bold">Table of contents</h3>
+          <h3 class="">Table of contents</h3>
         </header>
         <!-- Toc Component -->
         <TableOfContent :links="contentPath?.article.body.toc.links" />
@@ -186,15 +171,51 @@ const toggleSidebar = () => {
   </main>
 </template>
 <style scoped>
-.doc-sidebar {
-  @apply max-h-[calc(100vh-6rem)] overflow-auto;
+.sticky-position {
+  @apply sticky;
 }
-
+.prose {
+  @apply flex flex-row;
+}
+.prose .toggle-sidebar {
+  @apply md:hidden fixed right-0 top-0 m-4 z-50 rounded-md;
+}
+.prose .toggle-sidebar svg {
+  @apply w-8 h-8 text-gray-800 dark:text-gray-100;
+}
+.prose .backdrop {
+  @apply fixed inset-0 bg-gray-800 bg-opacity-50 z-40;
+}
+.prose .mobile-sidebar {
+  @apply fixed top-0 left-0 bottom-0 w-64 bg-white dark:bg-gray-800 z-50 overflow-y-auto transition-transform duration-300 transform;
+}
+.sidebar {
+  @apply py-4 px-4;
+}
+.sidebar-has-top {
+  @apply pt-4;
+}
+.doc-sidebar {
+  @apply max-h-[calc(100vh-6rem)] overflow-auto hidden md:block flex-col w-1/5 sticky h-3/4;
+}
+.desk-sidebar {
+  @apply shadow rounded px-2 py-6 mx-2 bg-gray-50 dark:bg-gray-800;
+}
 .custom-content {
-  @apply dark:text-gray-50;
+  @apply dark:text-gray-50 h-3/4;
+}
+.content-width-with-sidebar {
+  @apply md:w-4/5;
+}
+.content-width {
+  @apply md:w-3/5;
 }
 .custom-content p {
   @apply dark:text-gray-100;
+}
+
+.prev-next {
+  @apply dark:bg-gray-800 bg-gray-50 p-4 rounded my-5;
 }
 .toc {
   @apply py-4 px-2  rounded dark:bg-gray-800 dark:border-gray-700 bg-gray-50;
@@ -203,5 +224,11 @@ const toggleSidebar = () => {
 
 .toc-header {
   @apply pb-2 mb-2 border-b border-slate-200 dark:text-gray-50;
+}
+.toc-header h3 {
+  @apply text-lg font-semibold;
+}
+.aside-toc {
+  @apply mx-2 md:w-1/5 md:sticky h-3/4;
 }
 </style>
