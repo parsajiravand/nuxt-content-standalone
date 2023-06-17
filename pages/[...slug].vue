@@ -130,12 +130,28 @@ const toggleSidebar = () => {
     <div v-if="isSidebarOpen" class="mobile-sidebar">
       <nav
         :style="topPosition > 0 ? 'top: ' + topPosition + 'px' : ''"
-        class="sticky-position"
+        class=""
       >
+        <header class="toc-header m-4">
+          <h3 class="">Menu</h3>
+        </header>
         <ul class="sidebar" :class="topPosition > 0 ? 'sidebar-has-top' : ''">
           <SidebarLayout :navigation="navigation" />
         </ul>
       </nav>
+      <aside
+        class="p-4"
+        :style="topPosition > 0 ? 'top: ' + topPosition + 'px' : ''"
+        v-if="contentBar"
+      >
+        <nav class="">
+          <header class="toc-header">
+            <h3 class="">Table of contents</h3>
+          </header>
+          <!-- Toc Component -->
+          <TableOfContent :links="contentPath?.article.body.toc.links" />
+        </nav>
+      </aside>
     </div>
     <!-- Desktop only -->
     <nav
@@ -156,7 +172,7 @@ const toggleSidebar = () => {
       <PrevNext :prev="prev" :next="next" class="prev-next" />
     </div>
     <aside
-      class="aside-toc"
+      class="aside-toc md:block hidden"
       :style="topPosition > 0 ? 'top: ' + topPosition + 'px' : ''"
       v-if="contentBar"
     >
