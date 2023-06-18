@@ -3,6 +3,7 @@ import SidebarLayout from "~/components/content/SidebarLayout.vue";
 import { INavigation } from "~/interfaces/navigation";
 
 const appConfig = useAppConfig();
+
 const { data: navigationPure } = await useAsyncData("navigation", () =>
   fetchContentNavigation()
 );
@@ -81,6 +82,13 @@ const sidebar = computed(() => {
     return true;
   }
 });
+const layout = computed(() => {
+  if (contentPath.value?.article?.layout) {
+    return contentPath.value?.article?.layout;
+  } else {
+    return appConfig.stand.defaultLayout;
+  }
+});
 // destrucure `prev` and `next` value from contentPath
 //add type
 const [prev, next] = contentPath.value?.surround as [
@@ -108,55 +116,92 @@ const toggleSidebar = () => {
 };
 </script>
 <template>
-  <main class="prose">
-    <!-- create navigation ul with tailwind -->
-    <!-- create collapse for navbar on mobile size -->
-    <button
-      class="toggle-sidebar"
-      @click="toggleSidebar"
-      v-if="sidebar || contentbar"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
+  <NuxtLayout :name="layout">
+    <main class="prose">
+      <!-- create navigation ul with tailwind -->
+      <!-- create collapse for navbar on mobile size -->
+      <button
+        class="toggle-sidebar"
+        @click="toggleSidebar"
+        v-if="sidebar || contentbar"
       >
-        <path
-          v-if="!isSidebarOpen"
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-          d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z"
-        />
-        <path
-          v-if="isSidebarOpen"
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-          d="M20 6H4v2h16V6zm0 5H4v2h16v-2zm0 5H4v2h16v-2z"
-        />
-      </svg>
-    </button>
-    <!-- also add backdrop and transition for navbar -->
-    <div v-if="isSidebarOpen" class="backdrop" @click="toggleSidebar"></div>
-    <!-- Mobile only -->
-    <div v-if="isSidebarOpen" class="mobile-sidebar">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path
+            v-if="!isSidebarOpen"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z"
+          />
+          <path
+            v-if="isSidebarOpen"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M20 6H4v2h16V6zm0 5H4v2h16v-2zm0 5H4v2h16v-2z"
+          />
+        </svg>
+      </button>
+      <!-- also add backdrop and transition for navbar -->
+      <div v-if="isSidebarOpen" class="backdrop" @click="toggleSidebar"></div>
+      <!-- Mobile only -->
+      <div v-if="isSidebarOpen" class="mobile-sidebar">
+        <nav
+          v-if="sidebar"
+          :style="topPosition > 0 ? 'top: ' + topPosition + 'px' : ''"
+          class=""
+        >
+          <header class="toc-header m-4">
+            <h3 class="">Menu</h3>
+          </header>
+          <ul class="sidebar" :class="topPosition > 0 ? 'sidebar-has-top' : ''">
+            <SidebarLayout :navigation="navigation" />
+          </ul>
+        </nav>
+        <aside
+          class="p-4"
+          :style="topPosition > 0 ? 'top: ' + topPosition + 'px' : ''"
+          v-if="contentbar"
+        >
+          <nav class="">
+            <header class="toc-header">
+              <h3 class="">Table of contents</h3>
+            </header>
+            <!-- Toc Component -->
+            <TableOfContent :links="contentPath?.article.body.toc.links" />
+          </nav>
+        </aside>
+      </div>
+      <!-- Desktop only -->
       <nav
         v-if="sidebar"
         :style="topPosition > 0 ? 'top: ' + topPosition + 'px' : ''"
-        class=""
+        class="doc-sidebar"
       >
-        <header class="toc-header m-4">
-          <h3 class="">Menu</h3>
-        </header>
-        <ul class="sidebar" :class="topPosition > 0 ? 'sidebar-has-top' : ''">
+        <ul class="desk-sidebar">
           <SidebarLayout :navigation="navigation" />
         </ul>
       </nav>
+
+      <div
+        class="custom-content"
+        :class="!contentbar ? 'content-width-with-sidebar' : 'content-width'"
+        :style="topPosition > 0 ? 'margin-top: ' + topPosition + 'px' : ''"
+      >
+        <ContentDoc
+          class="content-doc dark:bg-gray-800 bg-gray-50 p-4 rounded"
+        />
+        <!-- PrevNext Component -->
+        <PrevNext :prev="prev" :next="next" class="prev-next" />
+      </div>
       <aside
-        class="p-4"
+        class="aside-toc md:block hidden"
         :style="topPosition > 0 ? 'top: ' + topPosition + 'px' : ''"
         v-if="contentbar"
       >
-        <nav class="">
+        <nav class="toc">
           <header class="toc-header">
             <h3 class="">Table of contents</h3>
           </header>
@@ -164,41 +209,8 @@ const toggleSidebar = () => {
           <TableOfContent :links="contentPath?.article.body.toc.links" />
         </nav>
       </aside>
-    </div>
-    <!-- Desktop only -->
-    <nav
-      v-if="sidebar"
-      :style="topPosition > 0 ? 'top: ' + topPosition + 'px' : ''"
-      class="doc-sidebar"
-    >
-      <ul class="desk-sidebar">
-        <SidebarLayout :navigation="navigation" />
-      </ul>
-    </nav>
-
-    <div
-      class="custom-content"
-      :class="!contentbar ? 'content-width-with-sidebar' : 'content-width'"
-      :style="topPosition > 0 ? 'margin-top: ' + topPosition + 'px' : ''"
-    >
-      <ContentDoc class="content-doc dark:bg-gray-800 bg-gray-50 p-4 rounded" />
-      <!-- PrevNext Component -->
-      <PrevNext :prev="prev" :next="next" class="prev-next" />
-    </div>
-    <aside
-      class="aside-toc md:block hidden"
-      :style="topPosition > 0 ? 'top: ' + topPosition + 'px' : ''"
-      v-if="contentbar"
-    >
-      <nav class="toc">
-        <header class="toc-header">
-          <h3 class="">Table of contents</h3>
-        </header>
-        <!-- Toc Component -->
-        <TableOfContent :links="contentPath?.article.body.toc.links" />
-      </nav>
-    </aside>
-  </main>
+    </main>
+  </NuxtLayout>
 </template>
 <style scoped>
 .sticky-position {
