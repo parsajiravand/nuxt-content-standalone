@@ -24,7 +24,7 @@ if (!navigationPure.value) {
 }
 
 const { path } = useRoute();
-
+const router = useRouter();
 const { data: contentPath, error } = await useAsyncData(
   `content-${path}`,
   async () => {
@@ -89,6 +89,15 @@ const layout = computed(() => {
     return appConfig.stand.defaultLayout;
   }
 });
+
+const redirect = () => {
+  if (contentPath.value?.article?.redirect) {
+    router.push(contentPath.value?.article?.redirect);
+  } else {
+    return false;
+  }
+};
+redirect();
 // destrucure `prev` and `next` value from contentPath
 //add type
 const [prev, next] = contentPath.value?.surround as [
