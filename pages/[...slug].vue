@@ -166,6 +166,7 @@ const toggleSidebar = () => {
     <div
       class="custom-content"
       :class="!contentBar ? 'content-width-with-sidebar' : 'content-width'"
+      :style=" topPosition > 0 ? 'margin-top: ' + topPosition + 'px' : ''"
     >
       <ContentDoc class="content-doc dark:bg-gray-800 bg-gray-50 p-4 rounded" />
       <!-- PrevNext Component -->
