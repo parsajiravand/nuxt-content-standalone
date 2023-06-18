@@ -1,5 +1,5 @@
 <template>
-  <header class="bg-gray-800 text-white mb-10 fixed w-full">
+  <header class="dark:bg-gray-800  dark:text-white bg-gray-100 mb-10 fixed w-full z-50">
     <div class="container mx-auto px-4 py-6 flex items-center justify-between">
       <div class="flex items-center">
         <svg
@@ -23,7 +23,7 @@
         <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="mr-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 text-white hover:text-blue-300 transition duration-300 ease-in-out"
+            class="h-6 w-6 dark:text-white hover:text-blue-300 transition duration-300 ease-in-out"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -37,7 +37,7 @@
         <a href="https://npmjs.com" target="_blank" rel="noopener noreferrer" class="mr-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 text-white hover:text-blue-300 transition duration-300 ease-in-out"
+            class="h-6 w-6 dark:text-white hover:text-blue-300 transition duration-300 ease-in-out"
             viewBox="0 0 24 24"
             fill="currentColor"
           >
@@ -48,7 +48,7 @@
           <svg
             xmlns="http://www.w3.org/2000/svg"
             v-if="isDarkTheme"
-            class="h-6 w-6 text-white hover:text-blue-300 transition duration-300 ease-in-out"
+            class="h-6 w-6 dark:text-white hover:text-blue-300 transition duration-300 ease-in-out"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -61,7 +61,7 @@
           <svg
             xmlns="http://www.w3.org/2000/svg"
             v-else
-            class="h-6 w-6 text-white hover:text-blue-300 transition duration-300 ease-in-out"
+            class="h-6 w-6 dark:text-white hover:text-blue-300 transition duration-300 ease-in-out"
             viewBox="0 0 20 20"
             fill="currentColor"
           >

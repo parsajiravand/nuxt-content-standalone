@@ -66,9 +66,16 @@ if (contentPath.value?.article) {
   setParentOpenStatus(navigation as INavigation[], childPath as string);
 }
 
-// check contentBar if it is in viewport
-const contentBar = computed(() => {
-  if (contentPath.value?.article?.contentBar === false) {
+// check contentbar if it is in viewport
+const contentbar = computed(() => {
+  if (contentPath.value?.article?.toc === false) {
+    return false;
+  } else {
+    return true;
+  }
+});
+const sidebar = computed(() => {
+  if (contentPath.value?.article?.aside === false) {
     return false;
   } else {
     return true;
@@ -104,7 +111,11 @@ const toggleSidebar = () => {
   <main class="prose">
     <!-- create navigation ul with tailwind -->
     <!-- create collapse for navbar on mobile size -->
-    <button class="toggle-sidebar" @click="toggleSidebar">
+    <button
+      class="toggle-sidebar"
+      @click="toggleSidebar"
+      v-if="sidebar || contentbar"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -129,6 +140,7 @@ const toggleSidebar = () => {
     <!-- Mobile only -->
     <div v-if="isSidebarOpen" class="mobile-sidebar">
       <nav
+        v-if="sidebar"
         :style="topPosition > 0 ? 'top: ' + topPosition + 'px' : ''"
         class=""
       >
@@ -142,7 +154,7 @@ const toggleSidebar = () => {
       <aside
         class="p-4"
         :style="topPosition > 0 ? 'top: ' + topPosition + 'px' : ''"
-        v-if="contentBar"
+        v-if="contentbar"
       >
         <nav class="">
           <header class="toc-header">
@@ -155,6 +167,7 @@ const toggleSidebar = () => {
     </div>
     <!-- Desktop only -->
     <nav
+      v-if="sidebar"
       :style="topPosition > 0 ? 'top: ' + topPosition + 'px' : ''"
       class="doc-sidebar"
     >
@@ -165,8 +178,8 @@ const toggleSidebar = () => {
 
     <div
       class="custom-content"
-      :class="!contentBar ? 'content-width-with-sidebar' : 'content-width'"
-      :style=" topPosition > 0 ? 'margin-top: ' + topPosition + 'px' : ''"
+      :class="!contentbar ? 'content-width-with-sidebar' : 'content-width'"
+      :style="topPosition > 0 ? 'margin-top: ' + topPosition + 'px' : ''"
     >
       <ContentDoc class="content-doc dark:bg-gray-800 bg-gray-50 p-4 rounded" />
       <!-- PrevNext Component -->
@@ -175,7 +188,7 @@ const toggleSidebar = () => {
     <aside
       class="aside-toc md:block hidden"
       :style="topPosition > 0 ? 'top: ' + topPosition + 'px' : ''"
-      v-if="contentBar"
+      v-if="contentbar"
     >
       <nav class="toc">
         <header class="toc-header">
