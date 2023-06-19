@@ -1,6 +1,7 @@
 ---
 title: Home
-
+toc: false
+aside: true
 ---
 
 :ellipsis{right=0px width=75% blur=150px}

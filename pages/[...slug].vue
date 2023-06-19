@@ -97,6 +97,15 @@ const redirect = () => {
     return false;
   }
 };
+const handelContentSize = computed(() => {
+  if (!contentbar.value && !sidebar.value) {
+    return "w-full";
+  } else if (!contentbar.value) {
+    return "content-width-with-sidebar";
+  } else {
+    return "content-width";
+  }
+});
 redirect();
 // destrucure `prev` and `next` value from contentPath
 //add type
@@ -196,7 +205,7 @@ const toggleSidebar = () => {
 
       <div
         class="custom-content"
-        :class="!contentbar ? 'content-width-with-sidebar' : 'content-width'"
+        :class="handelContentSize"
         :style="topPosition > 0 ? 'margin-top: ' + topPosition + 'px' : ''"
       >
         <ContentDoc
