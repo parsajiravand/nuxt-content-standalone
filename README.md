@@ -37,11 +37,11 @@ yarn add nuxt-content-stand
 
 - Install the package as mentioned in the installation section.
 
-- Import and register the plugin in your Nuxt configuration file (nuxt.config.js):
+- Import and register the plugin in your Nuxt configuration file (nuxt.config.ts):
 
 ```ts
 export default defineNuxtConfig({
-  extend: "nuxt-content-stand",
+  extends: "nuxt-content-stand",
 });
 ```
 
