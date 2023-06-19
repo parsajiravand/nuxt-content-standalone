@@ -1,6 +1,6 @@
 {
   "name": "nuxt-content-stand",
-  "version": "1.0.0-alpha.9",
+  "version": "1.0.0-alpha.10",
   "author": "parsa jiravand",
   "description": "Integration with Nuxt Content without documentDriven mode",
   "type": "module",

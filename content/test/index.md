@@ -2,6 +2,7 @@
 title: Home
 toc: false
 aside: true
+surround : true
 ---
 
 :ellipsis{right=0px width=75% blur=150px}
@@ -13,14 +14,14 @@ cta:
   - /start/getting-started
 secondary:
   - Open on GitHub →
-  - https://github.com/traderfour
+  - https://github.com/parsajiravand/nuxt-content-stand
 ---
 
 #title
-Trader4 Docs
+nuxt-content-stand Docs
 
 #description
-Deep Documentation and Tutorial for [Trader4](https://trader4.net) Products, Services, and Solutions
+Deep Documentation and Tutorial for [nuxt-content-stand](https://nuxt-content-stand.net) Products, Services, and Solutions
 
 #extra
   ::list

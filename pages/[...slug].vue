@@ -89,6 +89,20 @@ const layout = computed(() => {
     return appConfig.stand.defaultLayout;
   }
 });
+const surround = computed(() => {
+  if (contentPath.value?.article?.surround) {
+    return contentPath.value?.article?.surround;
+  } else {
+    return false;
+  }
+});
+const fluid = computed(() => {
+  if (contentPath.value?.article?.fluid) {
+    return contentPath.value?.article?.fluid;
+  } else {
+    return false;
+  }
+});
 
 const redirect = () => {
   if (contentPath.value?.article?.redirect) {
@@ -98,7 +112,8 @@ const redirect = () => {
   }
 };
 const handelContentSize = computed(() => {
-  if (!contentbar.value && !sidebar.value) {
+  const contentbarAndSidebar = !contentbar.value && !sidebar.value;
+  if (contentbarAndSidebar || fluid.value) {
     return "w-full";
   } else if (!contentbar.value) {
     return "content-width-with-sidebar";
@@ -167,7 +182,7 @@ const toggleSidebar = () => {
       <!-- Mobile only -->
       <div v-if="isSidebarOpen" class="mobile-sidebar">
         <nav
-          v-if="sidebar"
+          v-if="sidebar && !fluid"
           :style="topPosition > 0 ? 'top: ' + topPosition + 'px' : ''"
           class=""
         >
@@ -181,7 +196,7 @@ const toggleSidebar = () => {
         <aside
           class="p-4"
           :style="topPosition > 0 ? 'top: ' + topPosition + 'px' : ''"
-          v-if="contentbar"
+          v-if="contentbar && !fluid"
         >
           <nav class="">
             <header class="toc-header">
@@ -194,7 +209,7 @@ const toggleSidebar = () => {
       </div>
       <!-- Desktop only -->
       <nav
-        v-if="sidebar"
+        v-if="sidebar && !fluid"
         :style="topPosition > 0 ? 'top: ' + topPosition + 'px' : ''"
         class="doc-sidebar"
       >
@@ -212,12 +227,17 @@ const toggleSidebar = () => {
           class="content-doc dark:bg-gray-800 bg-gray-50 p-4 rounded"
         />
         <!-- PrevNext Component -->
-        <PrevNext :prev="prev" :next="next" class="prev-next" />
+        <PrevNext
+          :prev="prev"
+          :next="next"
+          class="prev-next"
+          v-if="surround && !fluid"
+        />
       </div>
       <aside
         class="aside-toc md:block hidden"
         :style="topPosition > 0 ? 'top: ' + topPosition + 'px' : ''"
-        v-if="contentbar"
+        v-if="contentbar && !fluid"
       >
         <nav class="toc">
           <header class="toc-header">
