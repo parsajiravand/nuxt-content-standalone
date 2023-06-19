@@ -7,6 +7,7 @@
     <div @click="toggleCollapse(link)" class="flex items-center cursor-pointer">
       <span class="mr-2">
         <svg
+          v-if="link.children?.length"
           :class="{ 'rotate-90': link.isOpen }"
           class="w-4 h-4 transition-transform duration-300 transform"
           xmlns="http://www.w3.org/2000/svg"
@@ -20,7 +21,8 @@
           <path d="M9 18l6-6-6-6" />
         </svg>
       </span>
-      <span class="text-gray-800 dark:text-gray-100 hover:text-indigo-500">
+      
+      <span class="text-gray-800 dark:text-gray-100">
         {{ link.title }}
       </span>
     </div>
