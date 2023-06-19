@@ -1,39 +1,8 @@
 <template>
-  <footer class="dark:bg-gray-800 dark:text-white bg-gray-50">
-    <div class="container mx-auto px-4 py-6 flex items-center justify-between">
+  <footer class="dark:bg-gray-800 py-4 mt-4 dark:text-white bg-gray-50">
+    <div class="container mx-auto px-4  flex items-center justify-between">
       <div>&copy; {{ currentYear }} My Documentation</div>
-      <div>
-        <a
-          href="https://github.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="mr-4"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 text-white hover:text-blue-300 transition duration-300 ease-in-out"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <!-- GitHub icon path -->
-          </svg>
-        </a>
-        <a
-          href="https://npmjs.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="mr-4"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 text-white hover:text-blue-300 transition duration-300 ease-in-out"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-          >
-            <!-- npm icon path -->
-          </svg>
-        </a>
-      </div>
+
     </div>
   </footer>
 </template>
