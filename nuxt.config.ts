@@ -11,6 +11,9 @@ export default defineNuxtConfig({
       },
     ],
   ],
+  generate: {
+    routes: ["/nuxt-core-markdown__/test"],
+  },
   content: {
     documentDriven: false,
     highlight: {

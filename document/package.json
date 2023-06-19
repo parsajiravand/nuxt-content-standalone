@@ -17,6 +17,6 @@
     "nuxt": "^3.5.2"
   },
   "dependencies": {
-    "nuxt-content-stand": "^1.0.0-alpha.10"
+    "nuxt-content-stand": "^1.0.0-alpha.14"
   }
 }
