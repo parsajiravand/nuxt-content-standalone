@@ -1,11 +1,7 @@
-interface AppConfig {
-  stand: {
-    insideFolder: string | null;
-  };
-}
+
 export default defineAppConfig({
   stand: {
-    contentRoot: '/docs',
+    contentRoot: null,
     defaultLayout: null,
   },
 });
