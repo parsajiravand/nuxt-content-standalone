@@ -93,7 +93,7 @@ const surround = computed(() => {
   if (contentPath.value?.article?.surround) {
     return contentPath.value?.article?.surround;
   } else {
-    return false;
+    return true;
   }
 });
 const fluid = computed(() => {
