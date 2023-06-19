@@ -31,7 +31,7 @@
         >
           <span
             class="hover:text-blue-500 px-2 rounded"
-            :class="{ 'text-blue-500': isCurrentRoute(item) }"
+            :class="{ 'text-blue-500 dark:text-blue-300': isCurrentRoute(item) }"
           >
             {{ item.title }}
           </span>

@@ -21,10 +21,18 @@
           <path d="M9 18l6-6-6-6" />
         </svg>
       </span>
-      
-      <span class="text-gray-800 dark:text-gray-100">
-        {{ link.title }}
-      </span>
+
+      <NuxtLink
+        :to="link._path"
+        class="block text-sm text-gray-800 dark:text-gray-100"
+      >
+        <span
+          class="hover:text-blue-500 rounded"
+          :class="{ 'text-blue-500 dark:text-blue-300': isCurrentRoute(link) }"
+        >
+          {{ link.title }}
+        </span>
+      </NuxtLink>
     </div>
     <Sidebar v-if="link.isOpen" :items="link.children || []"></Sidebar>
   </li>
@@ -43,6 +51,11 @@ defineProps({
 // toggle collapse item
 const toggleCollapse = (link: NavItem) => {
   link.isOpen = !link.isOpen;
+};
+const route = useRoute();
+const isCurrentRoute = (item: NavItem) => {
+  // Your implementation for checking current route
+  return item._path === route.path;
 };
 </script>
 

@@ -5,7 +5,7 @@ interface AppConfig {
 }
 export default defineAppConfig({
   stand: {
-    contentRoot: null,
+    contentRoot: '/docs',
     defaultLayout: null,
   },
 });
