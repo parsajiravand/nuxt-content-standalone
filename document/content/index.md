@@ -26,13 +26,17 @@ Easy to use in your main project.
 #extra
   ::list
   - **Don't need to create project for your documentation.**
-  - Have Sidebar,Table of Contents and more features.
-  - **+50 Components** ready to build rich pages
-  - Start from a `README`, scale to a framework documentation
+  - It has a sidebar, table of contents and more features.
+  - +50 Components ready to build rich pages
+  - Start from a README, scale to a framework documentation
   - Navigation and Table of Contents generation
   - Fully configurable design system
-  - Leverages [**Typography**](https://typography.nuxt.space/) and [**Elements**](https://elements.nuxt.dev)
-  - Used on [Content Documentation](https://content.nuxtjs.org)
+  - Leverages Typography and Elements
+  - Used on Content Documentation
+  - Powered by Nuxt Content
+  - Easy to use in your main project.
+  - tailwindcss support
+
   ::
 
 #support

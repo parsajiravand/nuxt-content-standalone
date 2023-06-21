@@ -1,21 +1,47 @@
 # Nuxt Content Standalone
 
-[![npm version](https://badge.fury.io/js/nuxt-content-standalone.svg)](https://badge.fury.io/js/nuxt-content-stand)
 
-> Setup documentation in your app with a sidebar feature, table of contents, and more, <b>without</b> setting `documentDriven` to `true` for Nuxt Content.
+> Setup documentation in your app with a sidebar feature, table of contents, and more, <b>with</b> setting `documentDriven` to `false` for Nuxt Content.
 
 ## Description
 
-"Nuxt Content Standalone" is a package that allows you to easily integrate a documentation system into your Nuxt.js application. It provides a sidebar feature, table of contents, and various customization options. The package works with Nuxt Content, even if the `documentDriven` option is <b> not </b> set to `true`.
+"Nuxt Content Standalone" is a package that allows you to easily integrate a documentation system into your Nuxt.js application. It provides a sidebar feature, table of contents, and various customization options. The package works with Nuxt Content, even if the `documentDriven` option is `false`.
 
-## Features
+<p align="center">
+  <a href="https://www.npmjs.com/package/nuxt-content-stand">
+    <img src="https://img.shields.io/npm/v/nuxt-content-stand.svg?style=flat-square" alt="version">
+  </a>
+  <a href="https://github.com/parsajiravand/nuxt-content-stand/blob/master/LICENSE">
+    <img src="https://img.shields.io/npm/l/nuxt-content-stand.svg?style=flat-square" alt="MIT license">
+  </a>
+  <a href="http://npmcharts.com/compare/nuxt-content-stand">
+    <img src="https://img.shields.io/npm/dm/nuxt-content-stand.svg?style=flat-square" alt="downloads">
+  </a>
+  <br>
 
-- Sidebar navigation
-- Table of contents generation
-- Customizable styles and appearance
-- Support for nested sections and pages
-- Automatic highlighting of the active section/page
-- Integration with Nuxt Content without `documentDriven` mode
+</p>
+
+<p align="center">
+  <br>
+  <strong>
+  <a style="font-size:20px" href="https://nuxt-content-stand.netlify.app"> 📚Document</a> ・
+  <a  style="font-size:20px" href="https://nuxt-content-stand.netlify.app">🚧 Demos  </a> ・
+  <a style="font-size:20px" href="https://nuxt-content-stand.netlify.app"> 🚧 Playground </a>
+  </strong>
+</p>
+
+## 🚀Features
+- Don't need to create project for your documentation.
+- It has a sidebar, table of contents and more features.
+- +50 Components ready to build rich pages
+- Start from a README, scale to a framework documentation
+- Navigation and Table of Contents generation
+- Fully configurable design system
+- Leverages Typography and Elements
+- Used on Content Documentation
+- Powered by Nuxt Content
+- Easy to use in your main project.
+- tailwindcss support
 
 ## Installation
 
@@ -33,7 +59,7 @@ yarn add nuxt-content-stand
 
 ## Usage
 
-- To use "Nuxt Content Standalone" in your Nuxt.js application, follow these steps:
+- To use "Nuxt Content Stand" in your Nuxt application, follow these steps:
 
 - Install the package as mentioned in the installation section.
 
@@ -47,15 +73,12 @@ export default defineNuxtConfig({
 
 - Create your documentation content in the content directory of your Nuxt.js project. Follow the guidelines and conventions provided by Nuxt Content.
 
-- Configure your documentation routes and structure as needed using the nuxt-content-standalone plugin options.
 
-- Use the NuxtContentStandalone component in your Vue templates to render the documentation sidebar and content.
+- For more detailed instructions and examples, please refer to the documentation of Nuxt Content Stand.
 
-- For more detailed instructions and examples, please refer to the documentation of Nuxt Content Standalone.
+## 🔧 Documentation
 
-## Documentation
-
-The complete documentation for "Nuxt Content Standalone" can be found at https://github.com/parsajiravand/nuxt-content-standalone.
+The complete documentation for "Nuxt Content Stand" can be found at https://nuxt-content-stand.netlify.app/.
 
 ## Contributing
 
