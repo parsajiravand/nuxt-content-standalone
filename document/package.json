@@ -14,9 +14,9 @@
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@types/node": "^18",
-    "nuxt": "^3.5.2"
+    "nuxt": "^3.6.0"
   },
   "dependencies": {
-    "nuxt-content-stand": "^1.0.0-alpha.14"
+    "nuxt-content-stand": "^1.0.0-beta.7"
   }
 }

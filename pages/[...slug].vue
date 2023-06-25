@@ -46,6 +46,12 @@ const { data: contentPath, error } = await useAsyncData(
 if (error.value) {
   throw createError({ statusCode: 404, statusMessage: "Page Not Found" });
 }
+if(!contentPath.value?.article){
+  throw createError({ statusCode: 404, statusMessage: "Page Not Found" });
+}
+if(!contentPath.value?.surround){
+  throw createError({ statusCode: 404, statusMessage: "Page Not Found" });
+}
 
 // show items in collapse if the current route is the same as the link path
 function setParentOpenStatus(navigation: INavigation[], childPath: string) {
